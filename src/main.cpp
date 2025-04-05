@@ -2,15 +2,28 @@
 #include <GameBoy.h>
 
 GameBoy gb;
-#define forward 3
-#define left 4
-#define right 5
-#define backward 6
 
+// macros for buttons 
+#define btnUp 3
+#define btnLeft 4
+#define btnRight 5
+#define btnDown 6
+
+//macros for direction
+#define dirUp 0
+#define dirRight 1
+#define dirLeft 2
+#define dirDown 3
+
+// integers 
 int dirX, dirY;
 int FoodX, FoodY;
 int x = 1;
 int y = 0;
+int direction = dirRight;
+
+int snakeX[10];
+int snakeY[10];
 
 void randomFood();
 void makeMove();
@@ -21,6 +34,9 @@ void setup()
   gb.begin(13);
   randomSeed(150);
   randomFood();
+
+  snakeX[0] = 4;
+  snakeY[0] = 7;
 }
 void loop()
 {
@@ -55,25 +71,29 @@ void makeMove()
 {
   int key = gb.getKey();
   Serial.println(key);
-  if (forward == key)
+  if (btnUp == key)
   {
     y--;
     x = 0;
+    direction = dirUp;
   }
-  if (left == key)
+  if (btnLeft == key)
   {
     x--;
     y = 0;
+    direction = dirLeft;
   }
-  if (right == key)
+  if (btnRight == key)
   {
     x++;
     y = 0;
+    direction = dirRight;
   }
-  if (backward == key)
+  if (btnDown == key)
   {
     y++;
     x = 0;
+    direction = dirDown;
   }
 }
 bool collision(int dirX, int dirY, int FoodX, int FoodY)
