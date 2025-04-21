@@ -41,6 +41,7 @@ void setup()
   snakeX[0] = 4;
   snakeY[0] = 7;
 }
+
 void loop()
 {
   makeMove();     //read buttons
@@ -86,6 +87,7 @@ void makeMove()
     direction = dirDown;
   }
 }
+
 bool collision(int dirX, int dirY, int FoodX, int FoodY)
 {
   if (dirY == FoodY and dirX == FoodX)
@@ -97,6 +99,7 @@ bool collision(int dirX, int dirY, int FoodX, int FoodY)
     return false;
   }
 }
+
 void randomFood()
 {
   FoodX = random(0, 8);
@@ -104,6 +107,11 @@ void randomFood()
 }
 
 void move() {
+  if((snakeX[0] == FoodX) and (snakeY[0] == FoodY)) {
+    lenSnake++;
+    randomFood();
+  }
+
   for (int i = lenSnake - 1; i > 0; i--) {
       snakeX[i] = snakeX[i - 1];
       snakeY[i] = snakeY[i - 1];
@@ -135,6 +143,7 @@ void move() {
       }
   }
 }
+
 void drawSnake(){
   for (size_t i = 0; i < lenSnake; i++)
   {
