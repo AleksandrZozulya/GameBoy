@@ -20,17 +20,20 @@ int FoodX, FoodY;
 int x = 1;
 int y = 0;
 int direction = dirRight;
+bool state;
 
-unsigned int lenSnake = 5;
+unsigned int lenSnake = 2;
 
-int snakeX[10];
-int snakeY[10];
+int snakeX[15];
+int snakeY[15];
 
 void randomFood();
 void makeMove();
 bool collision(int dirX, int dirY, int FoodX, int FoodY);
 void move();
 void drawSnake();
+void drawFruit();
+boolean isPartOfSnake(int x, int y);
 
 void setup()
 {
@@ -49,12 +52,13 @@ void loop()
 
   // collision
   if(collision(snakeX[0], snakeY[0], FoodX, FoodY)){
+    lenSnake++;
     randomFood();
   }
 
   gb.clearDisplay();
   drawSnake();
-  gb.drawPoint(FoodX, FoodY);
+  drawFruit();
   delay(200);
 }
 
@@ -100,10 +104,24 @@ bool collision(int dirX, int dirY, int FoodX, int FoodY)
   }
 }
 
+void drawFruit(){
+  state = !state;
+  if(state == true){
+    gb.drawPoint(FoodX, FoodY);
+  } else {
+    gb.wipePoint(FoodX, FoodY);
+  }
+}
+
 void randomFood()
 {
   FoodX = random(0, 8);
   FoodY = random(0, 16);
+  while (isPartOfSnake(FoodX, FoodY))
+  {
+    FoodX = random(0, 8);
+    FoodY = random(0, 16);
+  }
 }
 
 void move() {
@@ -149,5 +167,14 @@ void drawSnake(){
   {
     gb.drawPoint(snakeX[i],snakeY[i]);
   }
+}
+
+boolean isPartOfSnake(int x, int y){
+  for(int i = 0; i < lenSnake - 1; i++){
+    if(x == snakeX[i] && y == snakeY[i]){
+      return true;
+    } 
+  }
+  return false; 
 }
 
