@@ -49,13 +49,6 @@ void loop()
 {
   makeMove();     //read buttons
   move();         //snake move
-
-  // collision
-  if(collision(snakeX[0], snakeY[0], FoodX, FoodY)){
-    lenSnake++;
-    randomFood();
-  }
-
   gb.clearDisplay();
   drawSnake();
   drawFruit();
@@ -66,28 +59,20 @@ void makeMove()
 {
   int key = gb.getKey();
   Serial.println(key);
-  if (btnUp == key)
+  if (btnUp == key && direction != dirDown)
   {
-    y--;
-    x = 0;
     direction = dirUp;
   }
-  if (btnLeft == key)
+  if (btnLeft == key && direction != dirRight)
   {
-    x--;
-    y = 0;
     direction = dirLeft;
   }
-  if (btnRight == key)
+  if (btnRight == key && direction != dirLeft)
   {
-    x++;
-    y = 0;
     direction = dirRight;
   }
-  if (btnDown == key)
+  if (btnDown == key && direction != dirUp)
   {
-    y++;
-    x = 0;
     direction = dirDown;
   }
 }
@@ -125,9 +110,17 @@ void randomFood()
 }
 
 void move() {
-  if((snakeX[0] == FoodX) and (snakeY[0] == FoodY)) {
+  if((snakeX[0] == FoodX) && (snakeY[0] == FoodY)) {
     lenSnake++;
     randomFood();
+    gb.sound(SCORE);
+  }
+
+  for (int i = lenSnake - 1; i > 0; i--){
+    if(snakeX[0]== snakeX[i] && snakeY[0]== snakeY[i]){
+      gb.sound(COLLISION);
+      // new function loss
+    }
   }
 
   for (int i = lenSnake - 1; i > 0; i--) {
