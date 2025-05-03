@@ -34,6 +34,7 @@ void move();
 void drawSnake();
 void drawFruit();
 boolean isPartOfSnake(int x, int y);
+void loss();
 
 void setup()
 {
@@ -47,6 +48,7 @@ void setup()
 
 void loop()
 {
+
   makeMove();     //read buttons
   move();         //snake move
   gb.clearDisplay();
@@ -119,7 +121,7 @@ void move() {
   for (int i = lenSnake - 1; i > 0; i--){
     if(snakeX[0]== snakeX[i] && snakeY[0]== snakeY[i]){
       gb.sound(COLLISION);
-      // new function loss
+      loss();
     }
   }
 
@@ -170,4 +172,27 @@ boolean isPartOfSnake(int x, int y){
   }
   return false; 
 }
-
+void loss(){
+  for (size_t i = 0; i < 16; i++)
+  {
+    for (size_t j = 0; j < 8; j++)
+    {
+      gb.drawPoint(j, i);
+      delay(50);
+    }
+  }
+  delay(500);
+  gb.clearDisplay();
+  for (size_t i = 0; i < lenSnake; i++)
+  {
+    snakeX[i] = 0;
+    snakeY[i] = 0;
+  }
+  direction = dirRight;
+  FoodX = 3;
+  FoodY = 3;
+  lenSnake = 2;
+  snakeX[0] = 4;
+  snakeY[0] = 7;
+  
+}
