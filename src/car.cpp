@@ -1,4 +1,5 @@
-#include<GameBoy.h>
+#include <Arduino.h>
+#include <GameBoy.h>
 
 GameBoy gb;
 
@@ -14,12 +15,12 @@ void wipeEnemyCar(int x, int y);
 void createLine(int y);
 void wipeLine(int y);
 bool carCollision(int playerCar_x, int playerCar_y, int enemy_car_x, int enemy_car_y);
+void mainRaiiching();
 
 void setup() {
   gb.begin(15);
   playerCar(2, 12 );
 }
-
 void loop() {
   mainRaiiching();
 }
