@@ -15,17 +15,17 @@ void wipeEnemyCar(int x, int y);
 void createLine(int y);
 void wipeLine(int y);
 bool carCollision(int playerCar_x, int playerCar_y, int enemy_car_x, int enemy_car_y);
-void mainRaiiching();
+void mainRacing();
 
 void setup() {
   gb.begin(15);
   playerCar(2, 12 );
 }
 void loop() {
-  mainRaiiching();
+  mainRacing();
 }
 
-void mainRaiiching() {
+void mainRacing() {
   enemy_x = random(0, 10);
   if (enemy_x > 5) {
     enemy_x = 2;
