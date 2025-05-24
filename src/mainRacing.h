@@ -5,6 +5,7 @@
 
 GameBoy gb;
 
+
 int enemy_x = 2;
 int car_speed = 100;
 int playerCar_x = 2;

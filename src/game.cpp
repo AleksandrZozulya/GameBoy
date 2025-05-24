@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <GameBoy.h>
 #include <mainRacing.h>
+#include <mainSnake.h>
 
 
 int mode;
@@ -9,8 +10,6 @@ int modeCount;
 void mainMenu();
 int modeSelector();
 void switchMode(int mode);
-
-void mainSnake();
 
 byte ARROWS[8][8] = {
     {0, 0, 0, 0, 0, 0, 0, 0},
@@ -49,7 +48,7 @@ void setup()
 
 void loop()
 {
-    /*
+    
     if (gb.getKey() == 2 && modeSelector() == 0)
     {
         gb.clearDisplay();
@@ -66,8 +65,9 @@ void loop()
         mode = 0;
     }
     switchMode(mode);
-    */
-   mainRacing();
+    
+   //mainRacing();
+   //mainSnake();
     
 }
 

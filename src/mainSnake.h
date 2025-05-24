@@ -1,7 +1,7 @@
+#ifndef MAINSNAKE_H
+#define MAINSNAKE_H
 #include <Arduino.h>
 #include <GameBoy.h>
-
-GameBoy gb;
 
 // macros for buttons
 #define btnUp 3
@@ -37,15 +37,6 @@ boolean isPartOfSnake(int x, int y);
 void loss();
 void mainSnake();
 
-void setup()
-{
-  gb.begin(13);
-}
-
-void loop()
-{
-  mainSnake();
-}
 
 void makeMove()
 {
@@ -228,3 +219,7 @@ void mainSnake()
   drawFruit();
   delay(200);
 }
+
+
+
+#endif
