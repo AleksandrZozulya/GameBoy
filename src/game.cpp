@@ -2,7 +2,9 @@
 #include <GameBoy.h>
 #include <mainRacing.h>
 #include <mainSnake.h>
+#include <mainTetris.h>
 
+GameBoy gb;
 
 int mode;
 int modeCount;
@@ -44,11 +46,14 @@ byte SNAKE[8][8] = {
 void setup()
 {
     gb.begin(15);
+    randomSeed(analogRead(A5));
+    createBlock(random(0, 7));
 }
 
 void loop()
 {
-    
+    /*
+
     if (gb.getKey() == 2 && modeSelector() == 0)
     {
         gb.clearDisplay();
@@ -65,10 +70,26 @@ void loop()
         mode = 0;
     }
     switchMode(mode);
-    
-   //mainRacing();
-   //mainSnake();
-    
+    */
+
+    // mainRacing();
+    // mainSnake();
+
+    // for test
+
+    makeMoveTetris();
+    if (gb.checkBlockCollision(gb.block[rot], xT, yT + 1))
+    {
+        gb.memBlock(gb.block[rot], xT, yT);
+        createBlock(random(0, 7));
+    }
+    else
+    {
+        yT++;
+    }
+    gb.drawDisplay();
+    drawBlock(gb.block[rot], xT, yT);
+    delay(100);
 }
 
 void mainMenu()
@@ -144,4 +165,3 @@ void switchMode(int mode)
         break;
     }
 }
-

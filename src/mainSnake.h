@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include <GameBoy.h>
 
+extern GameBoy gb;
+
 // macros for buttons
 #define btnUp 3
 #define btnLeft 4

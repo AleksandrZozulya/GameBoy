@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include <GameBoy.h>
 
-GameBoy gb;
+extern GameBoy gb;
 
 
 int enemy_x = 2;
