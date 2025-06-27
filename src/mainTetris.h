@@ -163,6 +163,13 @@ void createBlock(int num)
 
 bool lossTetris()
 {
+    if (gb.checkBlockCollision(gb.block[rot], x, 0))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
-
 #endif
