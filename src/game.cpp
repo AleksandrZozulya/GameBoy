@@ -72,24 +72,7 @@ void loop()
     switchMode(mode);
     */
 
-    // mainRacing();
-    // mainSnake();
-
-    // for test
-
-    makeMoveTetris();
-    if (gb.checkBlockCollision(gb.block[rot], xT, yT + 1))
-    {
-        gb.memBlock(gb.block[rot], xT, yT);
-        createBlock(random(0, 7));
-    }
-    else
-    {
-        yT++;
-    }
-    gb.drawDisplay();
-    drawBlock(gb.block[rot], xT, yT);
-    delay(100);
+    mainTetris();
 }
 
 void mainMenu()
