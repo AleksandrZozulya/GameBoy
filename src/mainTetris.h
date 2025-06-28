@@ -26,8 +26,8 @@ byte WIN[16][8] = {
 
 int xT = 2, yT = -1;
 int rot = 0;
-unsigned int level, acc;
-int speed = 200;
+unsigned int level = 0, acc = 1;
+int speed = 100;
 
 unsigned int score = 0;
 
@@ -35,10 +35,23 @@ void drawBlock(byte arr[4][4], int xT, int yT);
 void makeMoveTetris();
 void createBlock(int num);
 bool lossTetris();
+bool win();
 void mainTetris();
 
 void mainTetris()
 {
+    if (win() == true) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 16; j++) {
+                gb.wipePoint(i, j);
+                gb.setLed(i, j, WIN[j][i]);
+            }
+        }
+        delay(2000);
+        gb.clearDisplay();
+        score = 0;
+        level = 0;
+    }
     if (lossTetris() == true)
     {
         for (size_t i = 0; i < 8; i++)
@@ -55,9 +68,9 @@ void mainTetris()
 
     makeMoveTetris();
 
-    if (gb.checkBlockCollision(gb.block[rot], x, y + 1))
+    if (gb.checkBlockCollision(gb.block[rot], xT, yT + 1))
     {
-        gb.memBlock(gb.block[rot], x, y);
+        gb.memBlock(gb.block[rot], xT, yT);
         int lines = gb.fullLine();
 
         if (lines != 0)
@@ -77,11 +90,11 @@ void mainTetris()
     }
     else
     {
-        y++;
+        yT++;
     }
 
     gb.drawDisplay();
-    drawBlock(gb.block[rot], x, y);
+    drawBlock(gb.block[rot], xT, yT);
     delay(speed / acc);
 }
 
@@ -163,7 +176,7 @@ void createBlock(int num)
 
 bool lossTetris()
 {
-    if (gb.checkBlockCollision(gb.block[rot], x, 0))
+    if (gb.checkBlockCollision(gb.block[rot], xT, 0))
     {
         return true;
     }
